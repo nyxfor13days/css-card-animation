@@ -1,3 +1,9 @@
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .wrapper {
   display: grid;
   place-content: center;
@@ -7,8 +13,39 @@
 
 .card {
   position: relative;
-  height: 50vh;
+  height: 40vh;
   aspect-ratio: 1/1.5;
   background: var(--surface);
   border-radius: 1rem;
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  inset: -0.1rem;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--clr-1),
+    var(--clr-2),
+    var(--clr-3),
+    var(--clr-4),
+    var(--clr-5)
+  );
+  border-radius: inherit;
+  animation: rotation 20s linear infinite;
+}
+
+.card::after {
+  filter: blur(3.5rem);
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
 }
